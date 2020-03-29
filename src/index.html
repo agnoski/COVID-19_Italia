@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>COVID19-Italia</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+	<label for="variables">Choose a Variable:</label>
+	<select id="variables" onchange="showPlot()">
+	</select> 
+
+	<div id='allRegionsDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+	<label for="regions">Choose a Region:</label>
+	<select id="regions" onchange="showPlot()">
+		<option disabled selected value> -- Choose a Region -- </option>
+	</select> 
+	
+	<div id='singleRegionDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/regression/1.4.0/regression.min.js'></script>
+
+	<script src='js/data.js'></script>
+	<script src='js/app.js'></script>
+</body>
+</html>
