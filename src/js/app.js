@@ -28,6 +28,8 @@ class DataFrame {
       dataRaw["totale_ospedalizzati_su_popolazione"] = this.getPercentage(dataRaw["totale_ospedalizzati"], people);
 
       dataRaw["terapia_intensiva_su_popolazione"] = this.getPercentage(dataRaw["terapia_intensiva"], people);
+      dataRaw["ricoverati_con_sintomi_su_popolazione"] = this.getPercentage(dataRaw["ricoverati_con_sintomi"], people);
+      dataRaw["isolamento_domiciliare_su_popolazione"] = this.getPercentage(dataRaw["isolamento_domiciliare"], people);
 
       dataRaw["delta_totale_casi"] = this.getDelta(i, regionData, "totale_casi");
       dataRaw["delta_totale_ospedalizzati"] = this.getDelta(i, regionData, "totale_ospedalizzati");
