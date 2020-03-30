@@ -126,21 +126,15 @@ class DataFrame {
   }
 
   plotSingleRegionHTML(regionName, varName, varText) {
-    const regionDataOrig = this.getDataRegion(regionName);
-    console.log(regionDataOrig);
-    const regionData = this.augmentData(regionDataOrig);
-    console.log(regionData);
-    const datapoints = this.getXYDataPoints(regionData, varName);
-    console.log(datapoints);
-    const plotdata = this.getPlotData(...datapoints, varText);
+    const plotdata = this.getPlotDataForSingleRegion(regionName, varName);
     console.log(plotdata);
-    const fitDataPoints = this.getXYDataForFit(...datapoints);
+    const fitDataPoints = this.getXYDataForFit(plotdata.x, plotdata.y);
     console.log(fitDataPoints);
     const regressionData = this.doRegression(fitDataPoints);
     console.log(regressionData);
     const YRegressionData = this.getYFromRegression(regressionData);
     console.log(YRegressionData);
-    const plotregressiondata = this.plotRegressionData(datapoints[0], YRegressionData);
+    const plotregressiondata = this.plotRegressionData(plotdata.x, YRegressionData);
     console.log(plotregressiondata);
     this.plotDataHTML(varText, [plotdata, plotregressiondata], "singleRegionDiv");
   }
