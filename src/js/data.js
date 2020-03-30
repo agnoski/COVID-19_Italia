@@ -42,6 +42,7 @@ const variablesInfo =
 	deceduti_su_popolazione: {name: "[%] Deceduti Su Popolazione"},
 	dimessi_guariti_su_totale_casi: {name: "[%] Dimessi Guariti Su Totale Casi"},
 	totale_ospedalizzati_su_popolazione: {name: "[%] Totale Ospedalizzati Su Popolazione"},
+	terapia_intensiva_su_popolazione: {name: "[%] Terapia Intensiva su Popolazione"},
 	delta_totale_casi: {name: "Delta Totale Casi"},
 	delta_totale_casi_su_popolazione: {name: "[%] Delta Totale Casi Su Popolazione"},
 	delta_totale_ospedalizzati: {name: "Delta Totale Ospedalizzati"},
