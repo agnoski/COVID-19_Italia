@@ -6,8 +6,8 @@ class DataFrame {
     this.regionsData = regionsData;
   }
 
-  getDataRegion(regions, regionName) {
-    return regions.filter(region => region["denominazione_regione"] === regionName);
+  getDataRegion(regionName) {
+    return this.regionsData.filter(region => region["denominazione_regione"] === regionName);
   }
 
   augmentData(regionData) {
@@ -108,8 +108,8 @@ class DataFrame {
     Plotly.newPlot(divName, data, layout, config);
   }
 
-  getPlotDataForSingleRegion(regions, regionName, variableKey) {
-      const regionDataOrig = this.getDataRegion(regions, regionName);
+  getPlotDataForSingleRegion(regionName, variableKey) {
+      const regionDataOrig = this.getDataRegion(regionName);
       const regionData = this.augmentData(regionDataOrig);
       const datapoints = this.getXYDataPoints(regionData, variableKey);
       const plotdata = this.plotData(...datapoints, regionName);
@@ -118,13 +118,13 @@ class DataFrame {
 
   plotAllRegions(variableKey) {
     const allPlotData = Object.values(regionsInfo).map( region => {
-      return this.getPlotDataForSingleRegion(this.regionsData, region.name, variableKey);
+      return this.getPlotDataForSingleRegion(region.name, variableKey);
     });
     this.plotDataHTML(variablesInfo[variableKey].name, allPlotData, "allRegionsDiv");
   }
 
   plotSingleRegion(regionName, varName, varText) {
-    const regionDataOrig = this.getDataRegion(this.regionsData, regionName);
+    const regionDataOrig = this.getDataRegion(regionName);
     console.log(regionDataOrig);
     const regionData = this.augmentData(regionDataOrig);
     console.log(regionData);
