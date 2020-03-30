@@ -146,6 +146,24 @@ class DataFrame {
   }
 }
 
+// utils
+function findRegion(regionName) {
+  const regionInfo = Object.entries(regionsInfo).filter(region => region[1].name === regionName);
+  return regionInfo[0][0];
+}
+
+async function getDataRegions(url) {
+  try {
+    const response = await fetch(url);
+    const jsonRest = await response.json();
+
+    return jsonRest;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// html interaction
 function showPlot() {
   const regionName = $("#regions option:selected").html();
   const varName = $("#variables").val();
@@ -166,25 +184,9 @@ function populateVariablesSelect() {
   });
 }
 
-function findRegion(regionName) {
-  const regionInfo = Object.entries(regionsInfo).filter(region => region[1].name === regionName);
-  return regionInfo[0][0];
-}
-
 function initBodyHTML() {
   populateRegionsSelect();
   populateVariablesSelect();
-}
-
-async function getDataRegions(url) {
-  try {
-    const response = await fetch(url);
-    const jsonRest = await response.json();
-
-    return jsonRest;
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 $(document).ready(function() {
