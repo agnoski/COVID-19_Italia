@@ -55,7 +55,7 @@ class DataFrame {
     return [X, Y]; 
   }
 
-  plotData(X, Y, plotName) {
+  getPlotData(X, Y, plotName) {
     const data = {
       x: X,
       y: Y,
@@ -114,25 +114,25 @@ class DataFrame {
       const regionDataOrig = this.getDataRegion(regionName);
       const regionData = this.augmentData(regionDataOrig);
       const datapoints = this.getXYDataPoints(regionData, variableKey);
-      const plotdata = this.plotData(...datapoints, regionName);
+      const plotdata = this.getPlotData(...datapoints, regionName);
       return plotdata;
   }
 
-  plotAllRegions(variableKey) {
+  plotAllRegionsHTML(variableKey) {
     const allPlotData = Object.values(regionsInfo).map( region => {
       return this.getPlotDataForSingleRegion(region.name, variableKey);
     });
     this.plotDataHTML(variablesInfo[variableKey].name, allPlotData, "allRegionsDiv");
   }
 
-  plotSingleRegion(regionName, varName, varText) {
+  plotSingleRegionHTML(regionName, varName, varText) {
     const regionDataOrig = this.getDataRegion(regionName);
     console.log(regionDataOrig);
     const regionData = this.augmentData(regionDataOrig);
     console.log(regionData);
     const datapoints = this.getXYDataPoints(regionData, varName);
     console.log(datapoints);
-    const plotdata = this.plotData(...datapoints, varText);
+    const plotdata = this.getPlotData(...datapoints, varText);
     console.log(plotdata);
     const fitDataPoints = this.getXYDataForFit(...datapoints);
     console.log(fitDataPoints);
@@ -150,8 +150,8 @@ function showPlot() {
   const regionName = $("#regions option:selected").html();
   const varName = $("#variables").val();
   const varText = $("#variables option:selected").html();
-  globalData.plotSingleRegion(regionName, varName, varText);
-  globalData.plotAllRegions(varName);
+  globalData.plotSingleRegionHTML(regionName, varName, varText);
+  globalData.plotAllRegionsHTML(varName);
 }
 
 function populateRegionsSelect() {
@@ -194,6 +194,6 @@ $(document).ready(function() {
     regionsData.then(regions => {
       globalData = new DataFrame(regions);
       const varibleKey = $("#variables").val();
-      globalData.plotAllRegions(varibleKey);
+      globalData.plotAllRegionsHTML(varibleKey);
     });
 });
