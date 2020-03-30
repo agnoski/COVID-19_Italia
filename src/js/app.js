@@ -49,9 +49,9 @@ class DataFrame {
     return i === 0 ? 0 : dataArray[i][key] - dataArray[i - 1][key];
   }
 
-  getXYDataPoints(data, varName) {
+  getXYDataPoints(data, variableKey) {
     const X = data.map(elem => elem["data"]);
-    const Y = data.map(elem => elem[varName]);
+    const Y = data.map(elem => elem[variableKey]);
     return [X, Y]; 
   }
 
@@ -133,12 +133,12 @@ class DataFrame {
     this.plotDataHTML(variablesInfo[variableKey].name, allPlotData, "allRegionsDiv");
   }
 
-  plotSingleRegionHTML(regionName, varName, varText) {
-    const plotdata = this.getPlotDataForSingleRegion(regionName, varName);
+  plotSingleRegionHTML(regionName, variableKey, variableName) {
+    const plotdata = this.getPlotDataForSingleRegion(regionName, variableKey);
     console.log(plotdata);
     const plotregressiondata = this.getPlotDataForRegression(plotdata.x, plotdata.y);
     console.log(plotregressiondata);
-    this.plotDataHTML(varText, [plotdata, plotregressiondata], "singleRegionDiv");
+    this.plotDataHTML(variableName, [plotdata, plotregressiondata], "singleRegionDiv");
   }
 }
 
@@ -162,10 +162,10 @@ async function getDataRegions(url) {
 // html interaction
 function showPlot() {
   const regionName = $("#regions option:selected").html();
-  const varName = $("#variables").val();
-  const varText = $("#variables option:selected").html();
-  globalData.plotSingleRegionHTML(regionName, varName, varText);
-  globalData.plotAllRegionsHTML(varName);
+  const variableKey = $("#variables").val();
+  const variableName = $("#variables option:selected").html();
+  globalData.plotSingleRegionHTML(regionName, variableKey, variableName);
+  globalData.plotAllRegionsHTML(variableKey);
 }
 
 function populateRegionsSelect() {
