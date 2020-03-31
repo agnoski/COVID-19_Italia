@@ -2,7 +2,8 @@ var globalData;
 
 class DataFrame {
 
-  constructor(regionsData) {
+  constructor(nationName, regionsData) {
+    this.nationName = nationName;
     this.regionsData = regionsData;
   }
 
@@ -128,8 +129,10 @@ class DataFrame {
     return plotregressiondata;
   }
 
-  plotAllRegionsHTML(variableKey) {
-    const allPlotData = Object.values(regionsInfo).map( region => {
+  plotAllRegionsHTML(variableKey, showNation) {
+    const allPlotData = Object.values(regionsInfo).filter(region => {
+      return showNation || region.name !== this.nationName;
+    }).map( region => {
       return this.getPlotDataForSingleRegion(region.name, variableKey);
     });
     this.plotDataHTML(variablesInfo[variableKey].name, allPlotData, "allRegionsDiv");
@@ -137,9 +140,7 @@ class DataFrame {
 
   plotSingleRegionHTML(regionName, variableKey, variableName) {
     const plotdata = this.getPlotDataForSingleRegion(regionName, variableKey);
-    console.log(plotdata);
     const plotregressiondata = this.getPlotDataForRegression(plotdata.x, plotdata.y);
-    console.log(plotregressiondata);
     this.plotDataHTML(variableName, [plotdata, plotregressiondata], "singleRegionDiv");
   }
 }
@@ -148,6 +149,12 @@ class DataFrame {
 function findRegion(regionName) {
   const regionInfo = Object.entries(regionsInfo).filter(region => region[1].name === regionName);
   return regionInfo[0][0];
+}
+
+function nationToRegion(nation, name) {
+  nation.forEach(rawData => {
+    rawData["denominazione_regione"] = name;
+  });
 }
 
 async function getDataRegions(url) {
@@ -166,8 +173,9 @@ function showPlot() {
   const regionName = $("#regions option:selected").html();
   const variableKey = $("#variables").val();
   const variableName = $("#variables option:selected").html();
+  const showNation = $("#showNation").is(":checked");
   globalData.plotSingleRegionHTML(regionName, variableKey, variableName);
-  globalData.plotAllRegionsHTML(variableKey);
+  globalData.plotAllRegionsHTML(variableKey, showNation);
 }
 
 function populateRegionsSelect() {
@@ -189,11 +197,19 @@ function initBodyHTML() {
 
 $(document).ready(function() {
     initBodyHTML();
-    const URL = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json";
-    const regionsData = getDataRegions(URL);
-    regionsData.then(regions => {
-      globalData = new DataFrame(regions);
+
+    const URL_NATION = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
+    const URL_REGIONS = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json";
+    
+    const nationData = getDataRegions(URL_NATION);
+    const regionsData = getDataRegions(URL_REGIONS);
+
+    Promise.all([nationData, regionsData]).then(regions => {
+      const nationName = "Italia";
+      const augmentedNationData = nationToRegion(regions[0], nationName);
+
+      globalData = new DataFrame(nationName, regions[0].concat(regions[1]));
       const varibleKey = $("#variables").val();
-      globalData.plotAllRegionsHTML(varibleKey);
+      globalData.plotAllRegionsHTML(varibleKey, true);
     });
 });

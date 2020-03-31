@@ -10,7 +10,10 @@
 
 	<label for="variables">Choose a Variable:</label>
 	<select id="variables" onchange="showPlot()">
-	</select> 
+	</select>
+
+	<label for="showNation">&nbsp;Mostra Nazionale: </label>
+	<input type="checkbox" id="showNation" checked onclick="showPlot()">
 
 	<div id='allRegionsDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
 

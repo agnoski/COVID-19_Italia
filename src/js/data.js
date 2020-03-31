@@ -1,5 +1,6 @@
 const regionsInfo = 
 {
+	italia: {name: "Italia",people: 60359546},
 	abruzzo: { name: "Abruzzo",people: 1311580},
 	basilicata: { name: "Basilicata",people: 562869},
 	bolzano: { name: "P.A. Bolzano",people: 531178},
