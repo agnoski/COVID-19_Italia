@@ -5,7 +5,7 @@ class DataFrame {
   constructor(nationName, regionsData) {
     this.nationName = nationName;
     this.regionsData = regionsData;
-    this.logScale = "";
+    this.logScale = {x: "", y: ""};
   }
 
   getDataRegion(regionName) {
@@ -47,7 +47,7 @@ class DataFrame {
 
 
       dataRaw["delta_totale_casi_su_popolazione"] = this.getPercentage(dataRaw["delta_totale_casi"], people);
-
+      dataRaw["totale_casi_vs_delta_totale_casi_settimana"] = this.getDeltaSinceNDaysAgo(i, regionData, "totale_casi", 7);
     });
     return regionData;
   }
@@ -64,8 +64,12 @@ class DataFrame {
     return i === 0 || dataArray[i - 1][key] === 0 ? 0 : ((dataArray[i][key] / dataArray[i - 1][key]) -1) * 100;
   }
 
+  getDeltaSinceNDaysAgo(i, dataArray, key, n) {
+    return i < n ? 0 : dataArray[i][key] - dataArray[i - n][key];
+  }
+
   getXYDataPoints(data, variableKey) {
-    const X = data.map(elem => elem["data"]);
+    const X = data.map(elem => elem[variablesInfo[variableKey].xAxis]);
     const Y = data.map(elem => elem[variableKey]);
     return [X, Y]; 
   }
@@ -115,15 +119,25 @@ class DataFrame {
     return data;
   }
 
-  setLogScale(logScale) {
-    this.logScale = logScale ? "log" : "";
+  setLogScale(logScale, variableKey) {
+    if(logScale) {
+      this.logScale.x = variablesInfo[variableKey].xAxisLogScale ? "log" : "";
+      this.logScale.y = "log";
+    } else {
+      this.logScale.x = "";
+      this.logScale.y = "";
+    }
   }
 
   plotDataHTML(plotTitle, data, divName) {
     const layout = {
       title: plotTitle,
+      xaxis: {
+        type: this.logScale.x,
+        autorange: true
+      },
       yaxis: {
-        type: this.logScale,
+        type: this.logScale.y,
         autorange: true
       }
     };
@@ -195,7 +209,7 @@ function showPlot() {
   const variableName = $("#variables option:selected").html();
   const showNation = $("#showNation").is(":checked");
   const logScale = $('#logScale').is(":checked");
-  globalData.setLogScale(logScale);
+  globalData.setLogScale(logScale, variableKey);
   globalData.plotSingleRegionHTML(regionName, variableKey, variableName);
   globalData.plotAllRegionsHTML(variableKey, showNation);
 }
