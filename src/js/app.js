@@ -5,6 +5,7 @@ class DataFrame {
   constructor(nationName, regionsData) {
     this.nationName = nationName;
     this.regionsData = regionsData;
+    this.logScale = "";
   }
 
   getDataRegion(regionName) {
@@ -103,9 +104,17 @@ class DataFrame {
     return data;
   }
 
+  setLogScale(logScale) {
+    this.logScale = logScale ? "log" : "";
+  }
+
   plotDataHTML(plotTitle, data, divName) {
     const layout = {
-      title: plotTitle
+      title: plotTitle,
+      yaxis: {
+        type: this.logScale,
+        autorange: true
+      }
     };
 
     const config = {responsive: true}
@@ -174,6 +183,8 @@ function showPlot() {
   const variableKey = $("#variables").val();
   const variableName = $("#variables option:selected").html();
   const showNation = $("#showNation").is(":checked");
+  const logScale = $('#logScale').is(":checked");
+  globalData.setLogScale(logScale);
   globalData.plotSingleRegionHTML(regionName, variableKey, variableName);
   globalData.plotAllRegionsHTML(variableKey, showNation);
 }
