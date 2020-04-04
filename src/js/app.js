@@ -39,6 +39,13 @@ class DataFrame {
       dataRaw["delta_dimessi_guariti"] = this.getDelta(i, regionData, "dimessi_guariti");
       dataRaw["delta_tamponi"] = this.getDelta(i, regionData, "tamponi");
 
+      dataRaw["perc_incr_totale_casi"] = this.getIncrPerc(i, regionData, "totale_casi");
+      dataRaw["perc_incr_totale_ospedalizzati"] = this.getIncrPerc(i, regionData, "totale_ospedalizzati");
+      dataRaw["perc_incr_deceduti"] = this.getIncrPerc(i, regionData, "deceduti");
+      dataRaw["perc_incr_dimessi_guariti"] = this.getIncrPerc(i, regionData, "dimessi_guariti");
+      dataRaw["perc_incr_tamponi"] = this.getIncrPerc(i, regionData, "tamponi");
+
+
       dataRaw["delta_totale_casi_su_popolazione"] = this.getPercentage(dataRaw["delta_totale_casi"], people);
 
     });
@@ -51,6 +58,10 @@ class DataFrame {
 
   getDelta(i, dataArray, key) {
     return i === 0 ? 0 : dataArray[i][key] - dataArray[i - 1][key];
+  }
+
+  getIncrPerc(i, dataArray, key) {
+    return i === 0 || dataArray[i - 1][key] === 0 ? 0 : ((dataArray[i][key] / dataArray[i - 1][key]) -1) * 100;
   }
 
   getXYDataPoints(data, variableKey) {

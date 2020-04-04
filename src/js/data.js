@@ -51,5 +51,10 @@ const variablesInfo =
 	delta_totale_ospedalizzati: {name: "Delta Totale Ospedalizzati"},
     delta_deceduti: {name: "Delta Deceduti"},
     delta_dimessi_guariti: {name: "Delta Dimessi Guariti"},
-    delta_tamponi:{name: "Delta Tamponi"}
+	delta_tamponi: {name: "Delta Tamponi"},
+	perc_incr_totale_casi: {name: "[%] Incremento Totale Casi"},
+	perc_incr_totale_ospedalizzati: {name: "[%] Incremento Totale Ospedalizzati"},
+    perc_incr_deceduti: {name: "[%] Incremento Deceduti"},
+    perc_incr_dimessi_guariti: {name: "[%] Incremento Dimessi Guariti"},
+	perc_incr_tamponi:{name: "[%] Incremento Tamponi"}
 };
