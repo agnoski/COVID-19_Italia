@@ -1,0 +1,18 @@
+body {
+    font-family: "Open Sans", verdana, arial, sans-serif;
+}
+
+.title-container {
+    margin-left: 8%;
+}
+
+.menu-container {
+    margin-left: 8%;
+}
+
+.plot-outer-container {
+    margin: 2% 8%;
+    padding: 16px;
+	box-shadow: 0 0 8px 2px #E0E0E0;
+	border-radius: 4px;
+}

@@ -8,30 +8,45 @@
 
 <body>
 
-	<label for="variables">Choose a Variable:</label>
-	<select id="variables" onchange="showPlot()">
-	</select>
+	<div class="container">
 
-	<label for="showNation">&nbsp;Mostra Nazionale: </label>
-	<input type="checkbox" id="showNation" checked onclick="showPlot()">
+		<div class="title-container">
+			<h1>COVID-19 Italia</h1>
+		</div>
 
-	<label for="logScale">&nbsp;Scala Logaritmica: </label>
-	<input type="checkbox" id="logScale" onclick="showPlot()">
+		<div class="menu-container">
+			<label for="variables">Scegli una variabile: </label>
+			<select id="variables" onchange="showPlot()">
+			</select>
 
-	<div id='allRegionsDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+			<label for="showNation">&nbsp;Mostra Nazionale: </label>
+			<input type="checkbox" id="showNation" checked onclick="showPlot()">
 
-	<label for="regions">Choose a Region:</label>
-	<select id="regions" onchange="showPlot()">
-		<option disabled selected value> -- Choose a Region -- </option>
-	</select> 
+			<label for="logScale">&nbsp;Scala Logaritmica: </label>
+			<input type="checkbox" id="logScale" onclick="showPlot()">
+		</div>
 
-	<div id='singleRegionDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+		<div class="plot-outer-container">
+			<div id="allRegionsDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+		</div>
 
-	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/regression/1.4.0/regression.min.js'></script>
+		<div class="menu-container">
+			<label for="regions">Scegli una Regione: </label>
+			<select id="regions" onchange="showPlot()">
+				<option disabled selected value> -- Regione -- </option>
+			</select> 
+		</div>
 
-	<script src='js/data.js'></script>
-	<script src='js/app.js'></script>
+		<div class="plot-outer-container">
+			<div id="singleRegionDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+		</div>
+	</div>
+
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/regression/1.4.0/regression.min.js"></script>
+
+	<script src="js/data.js"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>
