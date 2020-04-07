@@ -57,5 +57,8 @@ const variablesInfo =
     perc_incr_deceduti: {name: "[%] Incremento Deceduti", xAxis: "data", xAxisLogScale: false},
     perc_incr_dimessi_guariti: {name: "[%] Incremento Dimessi Guariti", xAxis: "data", xAxisLogScale: false},
 	perc_incr_tamponi: {name: "[%] Incremento Tamponi", xAxis: "data", xAxisLogScale: false},
+	perc_delta_totale_positivi_su_delta_tamponi: {name: "[%] Nuovi positivi su nuovi tamponi", xAxis: "data", xAxisLogScale: false},
+	perc_delta_totale_positivi_su_delta_tamponi_media_3: {name: "[%] Nuovi positivi su nuovi tamponi (media 3gg)", xAxis: "data", xAxisLogScale: false},
+	perc_delta_totale_positivi_su_delta_tamponi_media_5: {name: "[%] Nuovi positivi su nuovi tamponi (media 5gg)", xAxis: "data", xAxisLogScale: false},
 	totale_casi_vs_delta_totale_casi_settimana : {name: "Totale Casi VS Delta Totale Casi Settimana Prima", xAxis: "totale_casi", xAxisLogScale: true}
 };
