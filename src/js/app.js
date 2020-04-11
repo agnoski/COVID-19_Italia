@@ -47,6 +47,10 @@ class DataFrame {
 
 
       dataRaw["delta_totale_casi_su_popolazione"] = this.getPercentage(dataRaw["delta_totale_casi"], people);
+	  dataRaw["perc_delta_totale_positivi_su_delta_tamponi"] = this.getDoubleIncrPerc(i, regionData, "totale_casi", "tamponi");
+	  dataRaw["perc_delta_totale_positivi_su_delta_tamponi_media_3"] = this.getDoubleIncrPercNAvg(i, regionData, "totale_casi", "tamponi", 3);
+	  dataRaw["perc_delta_totale_positivi_su_delta_tamponi_media_5"] = this.getDoubleIncrPercNAvg(i, regionData, "totale_casi", "tamponi", 5);
+
       dataRaw["totale_casi_vs_delta_totale_casi_settimana"] = this.getDeltaSinceNDaysAgo(i, regionData, "totale_casi", 7);
     });
     return regionData;
@@ -62,6 +66,14 @@ class DataFrame {
 
   getIncrPerc(i, dataArray, key) {
     return i === 0 || dataArray[i - 1][key] === 0 ? 0 : ((dataArray[i][key] / dataArray[i - 1][key]) -1) * 100;
+  }
+  
+  getDoubleIncrPerc(i, dataArray, keyNum, keyDen) {
+    return i === 0 || dataArray[i][keyDen] - dataArray[i-1][keyDen] === 0 ? 0 : ((dataArray[i][keyNum] - dataArray[i-1][keyNum]) / (dataArray[i][keyDen] - dataArray[i-1][keyDen])) * 100;
+  }
+
+ getDoubleIncrPercNAvg(i, dataArray, keyNum, keyDen, n) {
+    return i < n ? 0 : (((dataArray[i][keyNum] - dataArray[i-n][keyNum])/n) / ((dataArray[i][keyDen] - dataArray[i-n][keyDen])/n)) * 100;
   }
 
   getDeltaSinceNDaysAgo(i, dataArray, key, n) {
